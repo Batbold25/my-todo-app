@@ -113,7 +113,7 @@ const deleteTask = (id) => {
 
 const toggleCompletion = (task) => {
   task.completed = !task.completed;
-  store.addTask(task); // Assuming addTask updates the task
+  store.addTask(task);
 };
 
 const filteredTasks = computed(() => {
