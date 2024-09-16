@@ -28,7 +28,13 @@ export const useTaskStore = defineStore("task", {
           "https://jsonplaceholder.typicode.com/todos",
           task
         );
-        this.tasks.push(response.data);
+        if (task.id) {
+          this.tasks = this.tasks.map((t) =>
+            t.id === task.id ? response.data : t
+          );
+        } else {
+          this.tasks.push(response.data);
+        }
       } catch (error) {
         console.error("Error adding task:", error);
       }

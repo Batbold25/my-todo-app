@@ -52,12 +52,12 @@
           <v-list-item-content>No tasks available</v-list-item-content>
         </v-list-item>
       </v-list>
-      <!-- <v-pagination
+      <v-pagination
         v-model:page="page"
         :length="totalPages"
         @input="handlePageChange"
         class="mt-4"
-      ></v-pagination> -->
+      ></v-pagination>
     </v-card>
   </v-container>
 </template>
@@ -70,8 +70,6 @@ const store = useTaskStore();
 const page = ref(store.page);
 const filter = ref("all");
 const filters = ["all", "completed", "pending"];
-const tasks = ref(store.tasks);
-const totalPages = ref(store.totalPages);
 
 const fetchTasks = (pageNumber) => {
   store.fetchTasks(pageNumber);
@@ -88,9 +86,7 @@ onMounted(() => {
 
 watch(
   () => store.tasks,
-  (newTasks) => {
-    tasks.value = newTasks;
-  }
+  (newTasks) => {}
 );
 
 watch(
@@ -118,17 +114,15 @@ const toggleCompletion = (task) => {
 
 const filteredTasks = computed(() => {
   if (filter.value === "completed") {
-    return tasks.value.filter((task) => task.completed);
+    return store.tasks.filter((task) => task.completed);
   } else if (filter.value === "pending") {
-    return tasks.value.filter((task) => !task.completed);
+    return store.tasks.filter((task) => !task.completed);
   } else {
-    return tasks.value;
+    return store.tasks;
   }
 });
 
-const editTask = (task) => {
-  console.log("Edit task:", task);
-};
+const editTask = (task) => {};
 </script>
 
 <style scoped>
